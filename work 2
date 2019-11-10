@@ -1,0 +1,22 @@
+#include <iostream>
+#include <algorithm> 
+using namespace std;
+int main() {
+	int plus = 0; 
+	const int n = 10;
+	int arr[n] = { -5, 20, 4, -8, 6, -6, 13, -11, 50, -9 };
+	for (int i = 0; i < n; i++)
+		if (arr[i] > 0)
+			plus++;
+	cout << "kollichestvo polozhitelnih elementov: "  << plus <<"\n";
+	int sum = 0;
+	for (int i = 0; i < n; i++)
+		if (arr[i] < 0)
+			sum = sum + arr[i];
+	cout << "summa elementov masiva...: " << sum <<"\n";
+	std::sort(arr, arr + n);
+	cout << "nash preobrazovanniy massiv: " <<"\n";
+	for (int i = 0; i < n; i++)
+		cout << arr[i]<<"\n";
+	return 0;
+}
