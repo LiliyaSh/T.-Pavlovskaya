@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+void func(float a, float b, float c, float xn, float xk, float dx)
+{
+	float F;
+	int Ac, Bc, Cc;
+	Ac = (int)a;
+	Bc = (int)b;
+	Cc = (int)c;
+	for (int x = xn; x <= xk; x += dx) {
+		if (x + 10 < 0 && b != 0) {
+			F = a * x * x - c * x + b;
+		}
+		else if (x + 10 > 0 && b == 0) {
+			F = (x - a) / (x - c);
+		}
+		else {
+			F = -x / (a - c);
+		}
+		if ((Ac || Bc) && !(Ac || Cc) != 0)
+			F = (double)F;
+		else
+			F = (int)F;
+		cout << " If x = "<< x << "  F = " << F <<"\n" ;
+	}
+}
+int main()
+{
+	float a, b, c, xn, xk, dx;
+	cout << "Enter number a: ";
+	cin >> a;
+	cout << "Enter number b: ";
+	cin >> b;
+	cout << "Enter number c: ";
+	cin >> c;
+	cout << "Enter initial value of X: ";
+	cin >> xn;
+	cout << "Enter final value of X: ";
+	cin >> xk;
+	cout << "Enter the step: ";
+	cin >> dx;
+	cout << "--------------------\n";
+    func(a, b, c, xn, xk, dx);
+	cout << "--------------------\n";
+	return 0;
+}
