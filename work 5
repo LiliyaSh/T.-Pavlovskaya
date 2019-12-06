@@ -1,0 +1,101 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include "cstring"
+
+const int N = 8;
+using namespace std;
+struct ZNAK
+{
+	static const int SZ = 256;
+	char fName[SZ];
+	char lName[SZ];
+	char zodiak[SZ];
+	int dateOfBirth[3];
+}  A[N]; 
+
+void fill(ZNAK* A, const int ARR_SIZE)
+{
+	char S[ZNAK::SZ];
+
+	for (int i = 0; i < ARR_SIZE; i++)
+	{
+		cout << "FirstName: ";
+		cin >> S;
+		strcpy(A[i].fName, S);
+
+		cout << "LastName: ";
+		cin >> S;
+		strcpy(A[i].lName, S);
+
+		cout << "Zodiak: ";
+		cin >> S;
+		strcpy(A[i].zodiak, S);
+
+		cout << "Date: " << '\n';
+		for (int j = 0; j < 3; j++)
+			cin >> A[i].dateOfBirth[j];
+
+		cout << '\n';
+	}
+}
+
+void printInformation(const ZNAK* A, const int ARR_SIZE)
+{
+	for (int i = 0; i < ARR_SIZE; i++)
+	{
+		cout << A[i].fName << " ";
+		cout << A[i].lName << " ";
+		cout << A[i].zodiak << " ";
+
+		for (int j = 0; j < 3; j++)
+			cout << A[i].dateOfBirth[j] << ".";
+		cout << "\n";
+	}
+	cout << "\n";
+}
+
+template <size_t NN>
+void sortByDate(ZNAK(&z)[NN], const int ARR_SIZE)
+{
+	ZNAK tmp;
+	bool is_larger_by_date;
+	for (int k = 0; k < ARR_SIZE - 1; k++)
+	{
+		for (int i = 0, j; i < ARR_SIZE - 1; i++)
+		{
+			is_larger_by_date = false;
+			j = i + 1;
+			if (z[i].dateOfBirth[2] > z[j].dateOfBirth[2])
+				is_larger_by_date = true;
+			else if (z[i].dateOfBirth[2] == z[j].dateOfBirth[2])
+			{
+				if (z[i].dateOfBirth[1] > z[j].dateOfBirth[1])
+					is_larger_by_date = true;
+				else if (z[i].dateOfBirth[1] == z[j].dateOfBirth[1])
+				{
+					if (z[i].dateOfBirth[0] > z[j].dateOfBirth[0])
+						is_larger_by_date = true;
+				}
+			}
+
+			if (is_larger_by_date)
+			{
+				tmp = z[i];
+				z[i] = z[j];
+				z[j] = tmp;
+			}
+		}
+	}
+}
+
+int main()
+{
+	ZNAK obj1[N];
+	fill(obj1, N);
+	printInformation(obj1, N);
+	cout << "Sorted by date." << "\n";
+	sortByDate(obj1, N);
+	printInformation(obj1, N);
+
+	return 0;
+}
