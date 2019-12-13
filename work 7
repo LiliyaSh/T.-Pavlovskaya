@@ -1,0 +1,76 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+int foo1(int **arr,int razmer) 
+{
+	int count = 0;
+	for (int i = 0; i < razmer; i++) {
+		for (int j = 0; j < razmer; j++) {
+			if (arr[i][j] < 0) {
+				count++;
+				if (count == razmer) {
+					cout << "stroka so vsemi otricatelnimi elementami = " << i + 1 << "\n";
+				}
+			}
+		}
+		count = 0;
+	}
+	cout << "\n";
+	int inext, jnext;
+	int i, j;
+	int temp;
+	bool sorted = false;
+	while (!sorted) {
+		sorted = true;
+		i = 0; j = 0;
+		for (inext = 0; inext < razmer; inext++)
+			for (jnext = (inext ? 0 : 1); jnext < razmer; jnext++)
+			{
+				if (arr[i][j] < arr[inext][jnext]) {
+					temp = arr[i][j];
+					arr[i][j] = arr[inext][jnext];
+					arr[inext][jnext] = temp;
+					sorted = false;
+				}
+				i = inext;
+				j = jnext;
+			}
+	}
+	for (int i = 0; i < razmer; i++) {
+		temp = arr[0][i];
+		arr[0][i] = arr[i][i];
+		arr[i][i] = temp;
+	}
+}
+
+void foo2(int **arr, int razmer){
+	for (int i = 0; i < razmer; i++) {
+		cout << "\n" << "\n";
+		for (int j = 0; j < razmer; j++) {
+			cout << arr[i][j] << "  ";
+		}
+	}
+}
+
+int main() {
+	int razmer;
+	cout << "Vvedite razmer matrici :";
+	cin >> razmer;
+	int** arr = new int*[razmer];
+	for (int i = 0; i < razmer; i++) {
+		arr[i] = new int[razmer];
+	}
+	srand(time(NULL));
+	for (int i = 0; i < razmer; i++) {
+		cout << "\n" << "\n";
+		for (int j = 0; j < razmer; j++) {
+			arr[i][j] = (rand() % 200) + -100;
+			cout << arr[i][j] << "  ";
+		}
+	}
+	cout << "\n";
+	cout << "\n" << "******************************************************************" << "\n";
+	foo1(arr, razmer);
+	foo2(arr, razmer);
+	return 0;
+}
