@@ -1,0 +1,69 @@
+#include<string>
+#include<iostream>
+using namespace std;
+struct znak {
+	string lastname;
+	string firstname;
+	string zodiak;
+	int date;
+	int month;
+	int year;
+};
+
+
+int main()
+{
+	setlocale(LC_ALL, "Ru");
+	int const N = 8;
+	int i, month;
+	bool zero = false;
+	znak array[N];
+	znak temp;
+	for (i = 0; i < N; i++) {
+		cout << "Введите имя: ";
+		cin >> array[i].firstname;
+		cout << "Введите фамилию: ";
+		cin >> array[i].lastname;
+		cout << "Введите знак зодиака: ";
+		cin >> array[i].zodiak;
+		cout << "Введите дату рождения: ";
+		cin >> array[i].date;
+		cout << "Введите месяц рождения: ";
+		cin >> array[i].month;
+		cout << "Введите год рождения: ";
+		cin >> array[i].year;
+	}
+	for (i = 0; i < N - 1; i++) {
+		for (int j = i + 1; j < N; j++)
+			if (array[i].zodiak > array[j].zodiak)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+	}
+	for (i = 0; i < N; i++) {
+		cout << "Имя: " << array[i].firstname << endl;
+		cout << "Фамилия: " << array[i].lastname << endl;
+		cout << "Знак зодиака: " << array[i].zodiak << endl;
+		cout << "Дата: " << array[i].date << endl;
+		cout << "Месяц: " << array[i].month << endl;
+		cout << "год: " << array[i].year << endl;
+
+	}
+	cout << "Введите месяц: ";
+	cin >> month;
+	for (i = 0; i < N; i++) {
+		if (array[i].month == month) {
+			zero = true;
+			cout << "Имя: " << array[i].firstname << endl;
+			cout << "Фамилия: " << array[i].lastname << endl;
+			cout << "Знак зодиака: " << array[i].zodiak << endl;
+			cout << "Дата: " << array[i].date << endl;
+			cout << "Месяц: " << array[i].month << endl;
+			cout << "год: " << array[i].year << endl;
+		}
+	}
+	if (zero == false) { cout<<"Данных по этому месяцу нет"; }
+	return 0;
+}
